@@ -1,0 +1,9 @@
+export {default as SVG_CHART} from './chart.svg';
+export {default as SVG_DOWNLOAD} from './download.svg';
+export {default as SVG_PENCIL} from './pencil.svg';
+export {default as SVG_PICTURE} from './picture.svg';
+export {default as SVG_ROUNDED_SCAN} from './roundedScan.svg';
+export {default as SVG_SCAN} from './scan.svg';
+export {default as SVG_THUMB_UP} from './thumb-up.svg';
+export {default as SVG_THUMB_DOWN} from './thumb-down.svg';
+export {default as IMG_MORE} from './more.png';
