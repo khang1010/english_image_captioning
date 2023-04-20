@@ -1,12 +1,5 @@
 import React, {useLayoutEffect, useRef, useState} from 'react';
-import {
-  Image,
-  Dimensions,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Dimensions, Image, ScrollView, Text, View} from 'react-native';
 
 import {useSelector} from 'react-redux';
 
@@ -16,24 +9,12 @@ import {
   selectStatus,
 } from '../../features/prediction/predictionSlice';
 
-import {
-  IMG_MORE,
-  SVG_CHART,
-  SVG_DOWNLOAD,
-  SVG_SCAN,
-  SVG_THUMB_DOWN,
-  SVG_THUMB_UP,
-} from '../../assets/images';
+import {SVG_SCAN} from '../../assets/images';
 import RoundedButton from '../../components/RoundedButton/RoundedButton';
-import SpecificationText from '../../components/SpecificationText/SpecificationText';
 
-import AlgorithmChoosing from '../../components/AlgorithmChoosing/AlgorithmChoosing';
-import PrimaryText from '../../components/PrimaryText/PrimaryText';
-import SecondaryText from '../../components/SecondaryText/SecondaryText';
-import COLORS from '../../constants/colors';
 import SCREEN_NAMES from '../../constants/screens';
 import styles from './PredictionScreenStyles';
-import {algorithmTypeSelector} from '../../features/algorithm/algorithmSlice';
+import TypingText from 'react-native-typing-text';
 
 const PredictionScreen = ({navigation}) => {
   const fileData = useSelector(fileSelector);
@@ -68,46 +49,6 @@ const PredictionScreen = ({navigation}) => {
               resizeMode={'contain'}
               source={{uri: fileData}}
             />
-            {predictionStatus === 'succeeded' &&
-            predictionResults?.length > 0 &&
-            verbIndex !== -1 ? (
-              <>
-                <View
-                  style={styles.humanBox(
-                    (predictionResults[verbIndex].hbox[1] / imageSize.height) *
-                      (Dimensions.get('window').height - initialContentOffset) +
-                      initialContentOffset / 2,
-                    (predictionResults[verbIndex].hbox[0] / imageSize.width) *
-                      Dimensions.get('window').width,
-                    ((predictionResults[verbIndex].hbox[2] -
-                      predictionResults[verbIndex].hbox[0]) /
-                      imageSize.width) *
-                      Dimensions.get('window').width,
-                    ((predictionResults[verbIndex].hbox[3] -
-                      predictionResults[verbIndex].hbox[1]) /
-                      imageSize.height) *
-                      (Dimensions.get('window').height - initialContentOffset),
-                  )}></View>
-                <View
-                  style={styles.box(
-                    (predictionResults[verbIndex].obox[1] / imageSize.height) *
-                      (Dimensions.get('window').height - initialContentOffset) +
-                      initialContentOffset / 2,
-                    (predictionResults[verbIndex].obox[0] / imageSize.width) *
-                      Dimensions.get('window').width,
-                    ((predictionResults[verbIndex].obox[2] -
-                      predictionResults[verbIndex].obox[0]) /
-                      imageSize.width) *
-                      Dimensions.get('window').width,
-                    ((predictionResults[verbIndex].obox[3] -
-                      predictionResults[verbIndex].obox[1]) /
-                      imageSize.height) *
-                      (Dimensions.get('window').height - initialContentOffset),
-                  )}>
-                  <Text>{predictionResults[verbIndex].label}</Text>
-                </View>
-              </>
-            ) : null}
           </View>
           <View style={{height: 1000}}></View>
         </ScrollView>
@@ -135,9 +76,10 @@ const PredictionScreen = ({navigation}) => {
         <View style={styles.mainBox}>
           {predictionStatus === 'succeeded' ? (
             predictionResults?.map?.((caption, index) => (
-              <Text key={index} style={{color: 'black'}}>
-                {caption}
-              </Text>
+              // <Text key={index} style={{color: 'black'}}>
+              //   {caption}
+              // </Text>
+              <TypingText text={caption} style={{color: 'black'}} />
             ))
           ) : (
             <Text style={styles.verb}>Loading</Text>

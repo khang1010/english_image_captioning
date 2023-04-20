@@ -8,7 +8,7 @@ const predict = async ({data, type}) => {
   const config = {
     method: 'post',
     // url: 'https://handwrittendigitdetection.azurewebsites.net/predict',
-    url: 'http://3.25.222.145/predict',
+    url: 'http://3.27.1.7/predict',
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -16,7 +16,7 @@ const predict = async ({data, type}) => {
   };
 
   const response = await axios(config);
-  // console.log({data: response.data});
+  console.log({data: response.data});
 
   return response.data;
 };
