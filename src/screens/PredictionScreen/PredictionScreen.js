@@ -1,5 +1,4 @@
 import React, {useLayoutEffect, useRef, useState, useEffect} from 'react';
-import { BackHandler } from 'react-native';
 import {
   Dimensions,
   Image,
@@ -7,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  BackHandler,
 } from 'react-native';
 
 import {useSelector} from 'react-redux';
@@ -73,10 +73,33 @@ const PredictionScreen = ({navigation}) => {
     return () => backHandler.remove();
   }, []);
 
-  const handleTextToSpeech = () => {
+  const fullText = 'This is a typing text animation.';
+  useEffect(() => {
+    let isMounted = true;
+    let currentIndex = 0;
+
+    const typingAnimation = setInterval(() => {
+      if (isMounted) {
+        const currentChar = fullText[currentIndex];
+        setText(prevText => prevText + currentChar);
+        currentIndex++;
+
+        if (currentIndex === fullText.length) {
+          clearInterval(typingAnimation);
+        }
+      }
+    }, 100);
+
+    return () => {
+      isMounted = false;
+      clearInterval(typingAnimation);
+    };
+  }, []);
+
+  const handleTextToSpeech = caption => {
     Tts.setDefaultLanguage('en-IE');
     Tts.setDefaultVoice('com.apple.ttsbundle.Moira-compat');
-    Tts.speak(text, {
+    Tts.speak(caption, {
       androidParams: {
         KEY_PARAM_PAN: -1,
         KEY_PARAM_VOLUME: 1,
@@ -126,8 +149,9 @@ const PredictionScreen = ({navigation}) => {
               //   {caption}
               // </Text>
               {
-                setText(caption);
+                // setText(caption);
                 return <TypingText text={caption} style={{color: 'black'}} />;
+                // return (<Text key={index} style={{color: 'black'}}>{text}</Text>);
               },
             )
           ) : (
@@ -150,7 +174,13 @@ const PredictionScreen = ({navigation}) => {
               text="Scan"
             />
             <RoundedButton
-              onPress={handleTextToSpeech}
+              onPress={() =>
+                predictionStatus === 'succeeded'
+                  ? predictionResults?.map?.((caption, index) => {
+                      return handleTextToSpeech(caption);
+                    })
+                  : handleTextToSpeech('Nothing')
+              }
               icon={<SVG_LOUDSPEAKER width={40} height={40} />}
               text="READ"
               style={{backgroundColor: '#FFFFFF'}}
