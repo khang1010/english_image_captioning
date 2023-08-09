@@ -1,4 +1,5 @@
 export {default as SVG_CHART} from './chart.svg';
+export {default as SVG_LOUDSPEAKER} from './loudspeaker.svg'
 export {default as SVG_DOWNLOAD} from './download.svg';
 export {default as SVG_PENCIL} from './pencil.svg';
 export {default as SVG_PICTURE} from './picture.svg';

@@ -1,5 +1,13 @@
-import React, {useLayoutEffect, useRef, useState} from 'react';
-import {Dimensions, Image, ScrollView, Text, View} from 'react-native';
+import React, {useLayoutEffect, useRef, useState, useEffect} from 'react';
+import { BackHandler } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import {useSelector} from 'react-redux';
 
@@ -9,12 +17,13 @@ import {
   selectStatus,
 } from '../../features/prediction/predictionSlice';
 
-import {SVG_SCAN} from '../../assets/images';
+import {SVG_LOUDSPEAKER, SVG_SCAN} from '../../assets/images';
 import RoundedButton from '../../components/RoundedButton/RoundedButton';
 
 import SCREEN_NAMES from '../../constants/screens';
 import styles from './PredictionScreenStyles';
 import TypingText from 'react-native-typing-text';
+import Tts from 'react-native-tts';
 
 const PredictionScreen = ({navigation}) => {
   const fileData = useSelector(fileSelector);
@@ -25,6 +34,7 @@ const PredictionScreen = ({navigation}) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(0);
   const [imageSize, setImageSize] = useState(null);
   const [verbIndex, setVerbIndex] = useState(-1);
+  const [text, setText] = useState('Khang');
 
   const imageScrollRef = useRef(null);
   const manBoxScrollRef = useRef(null);
@@ -38,6 +48,42 @@ const PredictionScreen = ({navigation}) => {
     imageScrollRef.current.scrollTo({y: scrollOffsetY, animated: true});
     Image.getSize(fileData, (width, height) => setImageSize({width, height}));
   }, [scrollOffsetY]);
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name: SCREEN_NAMES.HOME_SCREEN,
+            params: {key: Math.random().toString()},
+          },
+        ],
+      });
+      return true;
+    };
+
+    // Đăng ký bắt sự kiện nhấn nút "Back"
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    // Hủy đăng ký khi component bị hủy
+    return () => backHandler.remove();
+  }, []);
+
+  const handleTextToSpeech = () => {
+    Tts.setDefaultLanguage('en-IE');
+    Tts.setDefaultVoice('com.apple.ttsbundle.Moira-compat');
+    Tts.speak(text, {
+      androidParams: {
+        KEY_PARAM_PAN: -1,
+        KEY_PARAM_VOLUME: 1,
+        KEY_PARAM_STREAM: 'STREAM_MUSIC',
+      },
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -75,21 +121,39 @@ const PredictionScreen = ({navigation}) => {
         }}>
         <View style={styles.mainBox}>
           {predictionStatus === 'succeeded' ? (
-            predictionResults?.map?.((caption, index) => (
+            predictionResults?.map?.((caption, index) =>
               // <Text key={index} style={{color: 'black'}}>
               //   {caption}
               // </Text>
-              <TypingText text={caption} style={{color: 'black'}} />
-            ))
+              {
+                setText(caption);
+                return <TypingText text={caption} style={{color: 'black'}} />;
+              },
+            )
           ) : (
             <Text style={styles.verb}>Loading</Text>
           )}
-
           <View style={styles.buttonGroup}>
             <RoundedButton
-              onPress={() => navigation.navigate(SCREEN_NAMES.HOME_SCREEN)}
+              onPress={() =>
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: SCREEN_NAMES.HOME_SCREEN,
+                      params: {key: Math.random().toString()},
+                    },
+                  ],
+                })
+              }
               icon={<SVG_SCAN width={40} height={40} />}
               text="Scan"
+            />
+            <RoundedButton
+              onPress={handleTextToSpeech}
+              icon={<SVG_LOUDSPEAKER width={40} height={40} />}
+              text="READ"
+              style={{backgroundColor: '#FFFFFF'}}
             />
           </View>
         </View>
