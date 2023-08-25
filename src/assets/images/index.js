@@ -8,3 +8,4 @@ export {default as SVG_SCAN} from './scan.svg';
 export {default as SVG_THUMB_UP} from './thumb-up.svg';
 export {default as SVG_THUMB_DOWN} from './thumb-down.svg';
 export {default as IMG_MORE} from './more.png';
+export {default as SVG_SHARE} from './share.svg';

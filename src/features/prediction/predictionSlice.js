@@ -4,12 +4,8 @@ import predict from '../../api/predict';
 export const fetchResults = createAsyncThunk(
   'prediction/fetchResults',
   async ({data, type}) => {
-    try {
       const res = await predict({data, type});
       return res;
-    } catch {
-      return {message: 'Fail to fetch result'};
-    }
   },
 );
 
@@ -30,6 +26,7 @@ export const predictionSlice = createSlice({
     },
   },
   extraReducers: builder => {
+    
     builder
       .addCase(fetchResults.pending, state => {
         state.status = 'loading';
