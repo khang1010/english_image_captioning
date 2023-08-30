@@ -11,6 +11,8 @@ import COLORS from '../constants/colors';
 import FONT_FAMILY from '../constants/fonts';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import PredictionScreen from '../screens/PredictionScreen/PredictionScreen';
+import AboutAppScreen from '../screens/AboutAppScreen/AboutAppScreen';
+import StatisticsScreen from '../screens/StatisticScreen/StatisticScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +20,7 @@ const RootNavigator = () => {
   return (
     <View style={styles.container}>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Navigator initialRouteName= {SCREEN_NAMES.HOME_SCREEN} screenOptions={{headerShown: false}}>
           <Stack.Screen
             name={SCREEN_NAMES.HOME_SCREEN}
             component={HomeScreen}
@@ -27,6 +29,12 @@ const RootNavigator = () => {
             name={SCREEN_NAMES.PREDICTION_SCREEN}
             component={PredictionScreen}
           />
+          <Stack.Screen
+            name={SCREEN_NAMES.ABOUT_SCREEN}
+            component={AboutAppScreen}/>
+          <Stack.Screen
+            name={SCREEN_NAMES.STATISTICS_SCREEN}
+            component={StatisticsScreen}/>
         </Stack.Navigator>
       </NavigationContainer>
     </View>

@@ -185,6 +185,21 @@ const PredictionScreen = ({navigation}) => {
               text="READ"
               style={{backgroundColor: '#FFFFFF'}}
             />
+            <RoundedButton
+              onPress={() =>
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: SCREEN_NAMES.ABOUT_SCREEN,
+                      params: {key: Math.random().toString()},
+                    },
+                  ],
+                })
+              }
+              icon={<SVG_SCAN width={40} height={40} />}
+              text="About App"
+            />
           </View>
         </View>
       </ScrollView>
