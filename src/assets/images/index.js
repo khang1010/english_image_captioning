@@ -13,3 +13,4 @@ export {default as IMG_STATISTICS} from './statistics.svg';
 export {default as IC_INFO} from './infoIcon.png';
 export {default as IC_STATISTICS} from './statistics.png';
 
+export {default as SVG_SHARE} from './share.svg';

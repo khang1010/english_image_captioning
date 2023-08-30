@@ -73,7 +73,7 @@ const HomeScreen = ({navigation}) => {
 
       dispatch(changeFile(pickerResult.fileCopyUri));
 
-      navigation.navigate(SCREEN_NAMES.PREDICTION_SCREEN);
+      navigation.navigate(SCREEN_NAMES.PREDICTION_SCREEN, { imageURI: pickerResult.fileCopyUri });
     } catch (error) {
       handlePickingFileError(error);
     }
@@ -91,7 +91,7 @@ const HomeScreen = ({navigation}) => {
     const imageURI = 'file://' + picture.path;
     dispatch(fetchResults({data, type: 'none'}));
     dispatch(changeFile(imageURI));
-    navigation.navigate(SCREEN_NAMES.PREDICTION_SCREEN);
+    navigation.navigate(SCREEN_NAMES.PREDICTION_SCREEN, { imageURI: imageURI });
   };
 
   return (

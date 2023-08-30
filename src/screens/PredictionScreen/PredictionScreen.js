@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useRef, useState, useEffect} from 'react';
+import React, {useLayoutEffect, useRef, useState, useEffect, useCallback} from 'react';
 import {
   Dimensions,
   Image,
@@ -17,13 +17,15 @@ import {
   selectStatus,
 } from '../../features/prediction/predictionSlice';
 
-import {SVG_LOUDSPEAKER, SVG_SCAN} from '../../assets/images';
+import {SVG_LOUDSPEAKER, SVG_SCAN, SVG_SHARE} from '../../assets/images';
 import RoundedButton from '../../components/RoundedButton/RoundedButton';
 
 import SCREEN_NAMES from '../../constants/screens';
 import styles from './PredictionScreenStyles';
 import TypingText from 'react-native-typing-text';
 import Tts from 'react-native-tts';
+import { useRoute } from '@react-navigation/native';
+import Share from 'react-native-share';
 
 const PredictionScreen = ({navigation}) => {
   const fileData = useSelector(fileSelector);
@@ -39,11 +41,41 @@ const PredictionScreen = ({navigation}) => {
   const imageScrollRef = useRef(null);
   const manBoxScrollRef = useRef(null);
 
+  const route = useRoute();
+  const { imageURI } = route.params;
+
   const initialContentOffset = imageSize
     ? Dimensions.get('window').height -
       (Dimensions.get('window').width * imageSize.height) / imageSize.width
     : 0;
 
+  const handleShare = async (message = "hello") => {
+    try {
+      const shareOptions = {
+        title: "Image Captioning",
+        url: imageURI,
+        message: message,
+      };
+
+      const shareResponse = await Share.open(shareOptions);
+      console.log(shareResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleShareCallback = useCallback(() => {
+    console.log(">>> prediction status: ", predictionStatus);
+    if (predictionStatus === 'succeeded') {
+      // console.log(">>> result: ", predictionResults);
+      predictionResults?.map?.((caption, index) => {
+        return handleShare(caption);
+      });
+    } else {
+      handleShare("You don't have caption for this image");
+    }
+  }, [predictionStatus, predictionResults]);
+  
   useLayoutEffect(() => {
     imageScrollRef.current.scrollTo({y: scrollOffsetY, animated: true});
     Image.getSize(fileData, (width, height) => setImageSize({width, height}));
@@ -143,15 +175,11 @@ const PredictionScreen = ({navigation}) => {
           }
         }}>
         <View style={styles.mainBox}>
-          {predictionStatus === 'succeeded' ? (
+          {
+          predictionStatus === 'succeeded' ? (
             predictionResults?.map?.((caption, index) =>
-              // <Text key={index} style={{color: 'black'}}>
-              //   {caption}
-              // </Text>
               {
-                // setText(caption);
                 return <TypingText text={caption} style={{color: 'black'}} />;
-                // return (<Text key={index} style={{color: 'black'}}>{text}</Text>);
               },
             )
           ) : (
@@ -198,7 +226,12 @@ const PredictionScreen = ({navigation}) => {
                 })
               }
               icon={<SVG_SCAN width={40} height={40} />}
-              text="About App"
+              text="About App"/>
+            <RoundedButton
+              onPress={handleShareCallback}
+              icon={<SVG_SHARE width={40} height={40} />}
+              text="SHARE"
+              style={{backgroundColor: '#FFFFFF'}}
             />
           </View>
         </View>
