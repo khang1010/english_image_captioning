@@ -17,7 +17,7 @@ import {
   selectStatus,
 } from '../../features/prediction/predictionSlice';
 
-import {SVG_LOUDSPEAKER, SVG_SCAN, SVG_SHARE} from '../../assets/images';
+import {IC_INFO, SVG_INFO, SVG_LOUDSPEAKER, SVG_SCAN, SVG_SHARE} from '../../assets/images';
 import RoundedButton from '../../components/RoundedButton/RoundedButton';
 
 import SCREEN_NAMES from '../../constants/screens';
@@ -214,25 +214,20 @@ const PredictionScreen = ({navigation}) => {
               style={{backgroundColor: '#FFFFFF'}}
             />
             <RoundedButton
-              onPress={() =>
-                navigation.reset({
-                  index: 0,
-                  routes: [
-                    {
-                      name: SCREEN_NAMES.ABOUT_SCREEN,
-                      params: {key: Math.random().toString()},
-                    },
-                  ],
-                })
-              }
-              icon={<SVG_SCAN width={40} height={40} />}
-              text="About App"/>
-            <RoundedButton
               onPress={handleShareCallback}
               icon={<SVG_SHARE width={40} height={40} />}
               text="SHARE"
               style={{backgroundColor: '#FFFFFF'}}
             />
+          </View>
+          <View style={styles.aboutButton}>
+            <RoundedButton
+                onPress={() =>
+                  navigation.navigate(SCREEN_NAMES.ABOUT_SCREEN)
+                }
+                icon={<SVG_INFO width={40} height={40} />}
+                text="About"
+                style={{backgroundColor: '#FFFFFF', borderWidth: 0}} />
           </View>
         </View>
       </ScrollView>

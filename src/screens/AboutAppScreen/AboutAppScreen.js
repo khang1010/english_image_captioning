@@ -3,11 +3,9 @@ import { ScrollView, View, Dimensions, Image,Text, TouchableOpacity } from 'reac
 import styles from './AboutAppStyles';
 import { IC_INFO, IMG_LOGO } from '../../assets/images';
 import { useNavigation } from '@react-navigation/native';
-import StatisticsScreen from '../StatisticScreen/StatisticScreen';
 import SCREEN_NAMES from '../../constants/screens';
 
 const AboutAppScreen = ({navigation}) => {
-    navigation = useNavigation();
   return (
     <View style={styles.container}>
         <View style={styles.headerContainer}>
@@ -81,17 +79,14 @@ const AboutAppScreen = ({navigation}) => {
             <View style ={styles.ConclusionContainer}>
                 <Text style={styles.ConclusionText}>{'The application is a project of two\nstudents in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
             </View>
-            <TouchableOpacity onPress={() =>
-                navigation.navigate('HomeScreen')
-              }>
-            <View style ={styles.statisticsContainer}>
+            
+            <TouchableOpacity style ={styles.statisticsContainer} onPress={() => navigation.navigate(SCREEN_NAMES.STATISTICS_SCREEN)}>
                 <View style={styles.statisticslogo}>
                     <Image source={IC_INFO} style ={styles.iconScreenContainer}/>
                 </View>
                 <View style={styles.statisticsTextContainer}>
                     <Text style={styles.statisticsText}>Statistics</Text>
                 </View>
-            </View>
             </TouchableOpacity>
         </View>
     </View>

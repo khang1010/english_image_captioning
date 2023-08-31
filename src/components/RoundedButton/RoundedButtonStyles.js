@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.BLACK,
     borderRadius: 20,
-    padding: 24,
+    padding: 15,
     backgroundColor: COLORS.SUPERNOVA,
     alignItems: 'center',
     justifyContent: 'center',

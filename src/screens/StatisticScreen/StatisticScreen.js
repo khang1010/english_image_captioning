@@ -4,8 +4,10 @@ import styles from './StatisticStyles';
 import { IC_INFO, IMG_LOGO, IMG_STATISTICS,IC_STATISTICS } from '../../assets/images';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AnimationStatistics from '../../components/AnimationStatistics/AnimationStatistics';
+import { useNavigation } from '@react-navigation/core';
 
 const StatisticsScreen = ({navigation}) => {
+  navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} >
