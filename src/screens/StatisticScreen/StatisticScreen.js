@@ -1,16 +1,19 @@
 import React, {useEffect, useRef} from 'react';
 import { ScrollView, View, Dimensions, Image,Text, TouchableOpacity } from 'react-native';
 import styles from './StatisticStyles';
-import { IC_INFO, IMG_LOGO, IMG_STATISTICS,IC_STATISTICS } from '../../assets/images';
+import { IC_INFO, IMG_LOGO, IMG_STATISTICS,IC_STATISTICS, XML_SCROLL, SVG_SCROLL, IC_SCROLL } from '../../assets/images';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AnimationStatistics from '../../components/AnimationStatistics/AnimationStatistics';
 import { useNavigation } from '@react-navigation/core';
-
 const StatisticsScreen = ({navigation}) => {
   navigation = useNavigation();
+  const scrollViewRef = useRef();
+  const handleScrollToEnd = () => {   
+    scrollViewRef.current.scrollToEnd({animated: true});
+  };
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.scrollView} >
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView} ref={scrollViewRef} >
         <View style={styles.headerContainer}>
                 <View style={styles.iconScreenContainer}>
                     <Image source={IC_STATISTICS} style ={styles.iconScreenContainer}/>
@@ -39,9 +42,9 @@ const StatisticsScreen = ({navigation}) => {
         <Text style={styles.bigText}>5</Text>
           <Text style={styles.smallText}>{'Algorihms'}</Text>
         </View>
-        <View style ={styles.ConclusionContainer}>
-          <Text style={styles.ConclusionText}>{'The application is a project of two\nstudents in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
-        </View>
+        <TouchableOpacity onPress={handleScrollToEnd}>
+          <Image style ={styles.ScrollToEndContainer} source={IC_SCROLL} />
+        </TouchableOpacity>
         <View style ={styles.pageHeaderContainer}>
           <Text style={styles.pageHeaderText}>{'Algorithm comparision'}</Text>
         </View>
@@ -73,7 +76,7 @@ const StatisticsScreen = ({navigation}) => {
           <Text style={styles.ConclusionText}>{'The application is a project of two\nstudents in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
 
   );
 };

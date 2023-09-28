@@ -153,10 +153,15 @@ const styles = StyleSheet.create({
         marginTop: 3,
         color: COLORS.GRAY,
     },
-    AnimationStyles:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
+    ScrollToEndContainer: {
+        alignSelf: 'center',
+        alignItems:'center',
+        top: Dimensions.get('window').height * 0.04,
+        width: Dimensions.get('window').width * 0.30,
+        height: Dimensions.get('window').height * 0.13,
+        borderRadius: 45,
+        borderWidth: 1,
+        borderColor: COLORS.GRAY,
     },
 });
 
