@@ -153,6 +153,11 @@ const styles = StyleSheet.create({
         marginTop: 3,
         color: COLORS.GRAY,
     },
+    AnimationStyles:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 10,
+    },
 });
 
 export default styles;

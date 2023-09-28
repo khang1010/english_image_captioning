@@ -17,7 +17,7 @@ const AnimationStatistics = ({MarginTop, Width}) => {
     const animatedValue = useSharedValue(0);
   const animatedWidth = useAnimatedProps(() => {
     return {
-      width: interpolate(animatedValue.value, [0, 1], [0, width * 0.6]),
+      width: interpolate(animatedValue.value, [0, 1], [0, width * Width]),
     };
   });
   const animatedRightWidth = useAnimatedProps(() => {
@@ -25,9 +25,9 @@ const AnimationStatistics = ({MarginTop, Width}) => {
       width: interpolate(
         animatedValue.value,
         [0, 1],
-        [width * 0.8, width * 0.2],
+        [width * 0.8, width * (1-Width-0.125)],
       ),
-      x: interpolate(animatedValue.value, [0, 1], [0, width * 0.7]),
+      x: interpolate(animatedValue.value, [0, 1], [0, width * (Width+0.025)]),
     };
   });
   useEffect(() => {
