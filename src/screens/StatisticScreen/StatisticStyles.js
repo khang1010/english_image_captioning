@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     ConclusionText:{
         fontFamily: FONT_FAMILY.POPPINS.REGULAR,
-        fontSize: 15,
+        fontSize: 10,
         fontWeight: '600',
         alignItems:'center',
         marginTop: 5,

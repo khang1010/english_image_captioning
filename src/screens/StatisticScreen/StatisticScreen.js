@@ -73,7 +73,7 @@ const StatisticsScreen = ({navigation}) => {
           <AnimationStatistics MarginTop={Dimensions.get('window').height * 0.00} Width={0.7}/>
         </View>
         <View style ={[styles.ConclusionContainer,{marginTop:Dimensions.get('window').height * 0.1}]}>
-          <Text style={styles.ConclusionText}>{'The application is a project of two\nstudents in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
+          <Text style={styles.ConclusionText}>{'The application is a project of two students\n\t\t\t\t\t\in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
         </View>
       </ScrollView>
     </View>

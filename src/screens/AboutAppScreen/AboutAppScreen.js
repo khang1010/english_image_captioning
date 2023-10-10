@@ -34,7 +34,7 @@ const AboutAppScreen = ({navigation}) => {
             </View>
         </View>
         <View style={styles.anotherInfoContainer}>
-            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.00}]}>
+        <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.00}]}>
                 <Text style={styles.TextInfo}>Description</Text>
             </View>
             <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.00}]}>
@@ -52,32 +52,32 @@ const AboutAppScreen = ({navigation}) => {
             <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.14}]}>
                 <Text style={styles.TextInfoCollumn2}>{'Homescreen\nPredictScreen'}</Text>
             </View>
-            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.22}]}>
+            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.21}]}>
                 <Text style={styles.TextInfo}>Language</Text>
             </View>
-            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.22}]}>
+            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.21}]}>
                 <Text style={styles.TextInfoCollumn2}>{'English'}</Text>
             </View>
-            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.28}]}>
+            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.265}]}>
                 <Text style={styles.TextInfo}>Customer Support</Text>
             </View>
-            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.28}]}>
+            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.265}]}>
                 <Text style={styles.TextInfoCollumn2}>{'ongtrandong2@gmail.com'}</Text>
             </View>
-            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.35}]}>
+            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.32}]}>
                 <Text style={styles.TextInfo}>App Rating</Text>
             </View>
-            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.35}]}>
+            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.32}]}>
                 <Text style={styles.TextInfoCollumn2}>{'Update later'}</Text>
             </View>
-            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.41}]}>
+            <View style={[styles.InfoCollumn1Container,{top: Dimensions.get('window').height * 0.385}]}>
                 <Text style={styles.TextInfo}>GitHub</Text>
             </View>
-            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.41}]}>
+            <View style={[styles.InfoCollumn2Container,{top: Dimensions.get('window').height * 0.385}]}>
                 <Text style={styles.TextInfoCollumn2}>{'github.com/khang1010\ngithub.com/ongtrandong2'}</Text>
             </View>
             <View style ={styles.ConclusionContainer}>
-                <Text style={styles.ConclusionText}>{'The application is a project of two\nstudents in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
+                <Text style={styles.ConclusionText}>{'The application is a project of two students\n\t\t\t\t\t\in University of Infomation\n\t\t\t\t\t\t\t\tTechnology (UIT)'}</Text>
             </View>
             
             <TouchableOpacity style ={styles.statisticsContainer} onPress={() => navigation.navigate(SCREEN_NAMES.STATISTICS_SCREEN)}>

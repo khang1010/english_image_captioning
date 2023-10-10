@@ -1,10 +1,17 @@
-import React, {useLayoutEffect, useRef, useState, useEffect, useCallback} from 'react';
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import {
   Dimensions,
   Image,
   ScrollView,
   Text,
   TextInput,
+  ToastAndroid,
   View,
   BackHandler,
 } from 'react-native';
@@ -17,14 +24,20 @@ import {
   selectStatus,
 } from '../../features/prediction/predictionSlice';
 
-import {IC_INFO, SVG_INFO, SVG_LOUDSPEAKER, SVG_SCAN, SVG_SHARE} from '../../assets/images';
+import {
+  IC_INFO,
+  SVG_INFO,
+  SVG_LOUDSPEAKER,
+  SVG_SCAN,
+  SVG_SHARE,
+} from '../../assets/images';
 import RoundedButton from '../../components/RoundedButton/RoundedButton';
 
 import SCREEN_NAMES from '../../constants/screens';
 import styles from './PredictionScreenStyles';
 import TypingText from 'react-native-typing-text';
 import Tts from 'react-native-tts';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import Share from 'react-native-share';
 
 const PredictionScreen = ({navigation}) => {
@@ -37,22 +50,23 @@ const PredictionScreen = ({navigation}) => {
   const [imageSize, setImageSize] = useState(null);
   const [verbIndex, setVerbIndex] = useState(-1);
   const [text, setText] = useState('Khang');
+  const [showText, setShowText] = useState(true);
 
   const imageScrollRef = useRef(null);
   const manBoxScrollRef = useRef(null);
 
   const route = useRoute();
-  const { imageURI } = route.params;
+  const {imageURI} = route.params;
 
   const initialContentOffset = imageSize
     ? Dimensions.get('window').height -
       (Dimensions.get('window').width * imageSize.height) / imageSize.width
     : 0;
 
-  const handleShare = async (message = "hello") => {
+  const handleShare = async (message = 'hello') => {
     try {
       const shareOptions = {
-        title: "Image Captioning",
+        title: 'Image Captioning',
         url: imageURI,
         message: message,
       };
@@ -62,10 +76,10 @@ const PredictionScreen = ({navigation}) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const handleShareCallback = useCallback(() => {
-    console.log(">>> prediction status: ", predictionStatus);
+    console.log('>>> prediction status: ', predictionStatus);
     if (predictionStatus === 'succeeded') {
       // console.log(">>> result: ", predictionResults);
       predictionResults?.map?.((caption, index) => {
@@ -75,7 +89,7 @@ const PredictionScreen = ({navigation}) => {
       handleShare("You don't have caption for this image");
     }
   }, [predictionStatus, predictionResults]);
-  
+
   useLayoutEffect(() => {
     imageScrollRef.current.scrollTo({y: scrollOffsetY, animated: true});
     Image.getSize(fileData, (width, height) => setImageSize({width, height}));
@@ -94,15 +108,18 @@ const PredictionScreen = ({navigation}) => {
       });
       return true;
     };
-
     // Đăng ký bắt sự kiện nhấn nút "Back"
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       backAction,
     );
-
+    const interval = setInterval(() => {
+      setShowText(showText => !showText);
+    }, 500);
     // Hủy đăng ký khi component bị hủy
-    return () => backHandler.remove();
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const fullText = 'This is a typing text animation.';
@@ -120,7 +137,7 @@ const PredictionScreen = ({navigation}) => {
           clearInterval(typingAnimation);
         }
       }
-    }, 100);
+    }, 1000);
 
     return () => {
       isMounted = false;
@@ -175,15 +192,23 @@ const PredictionScreen = ({navigation}) => {
           }
         }}>
         <View style={styles.mainBox}>
-          {
-          predictionStatus === 'succeeded' ? (
-            predictionResults?.map?.((caption, index) =>
-              {
-                return <TypingText text={caption} style={{color: 'black'}} />;
-              },
-            )
+          {predictionStatus === 'succeeded' ? (
+            predictionResults?.map?.((caption, index) => {
+              return <TypingText text={caption} style={{color: 'black'}} />;
+            })
+          ) : predictionStatus === 'failed' ? (
+            <Text style={[styles.verb]}>Can't connect to sever</Text>
           ) : (
-            <Text style={styles.verb}>Loading</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[styles.verb]}>Loading</Text>
+              <Text
+                style={[
+                  styles.verb,
+                  {color: showText ? 'black' : 'transparent'},
+                ]}>
+                {'. . .'}
+              </Text>
+            </View>
           )}
           <View style={styles.buttonGroup}>
             <RoundedButton
@@ -222,12 +247,11 @@ const PredictionScreen = ({navigation}) => {
           </View>
           <View style={styles.aboutButton}>
             <RoundedButton
-                onPress={() =>
-                  navigation.navigate(SCREEN_NAMES.ABOUT_SCREEN)
-                }
-                icon={<SVG_INFO width={40} height={40} />}
-                text="About"
-                style={{backgroundColor: '#FFFFFF', borderWidth: 0}} />
+              onPress={() => navigation.navigate(SCREEN_NAMES.ABOUT_SCREEN)}
+              icon={<SVG_INFO width={40} height={40} />}
+              text="About"
+              style={{backgroundColor: '#FFFFFF', borderWidth: 0}}
+            />
           </View>
         </View>
       </ScrollView>

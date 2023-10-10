@@ -17,7 +17,6 @@ const predict = async ({data, type}) => {
 
   const response = await axios(config);
   console.log({data: response.data});
-
   return response.data;
 };
 

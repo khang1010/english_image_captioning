@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 30,
     borderColor: COLORS.BLACK,
-    borderWidth: 1.5,
+    shadowOpacity: 5,
     backgroundColor: COLORS.MALIBU,
   },
   anotherInfoContainer: {
@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 0.5,
-    left: Dimensions.get('window').width * 0.025,
+    left: Dimensions.get('window').width * 0.051,
+    top: Dimensions.get('window').height * 0.007,
+    width: Dimensions.get('window').width * 0.45,
     justifyContent: 'space-between',
   },
   iconScreenContainer: {
@@ -61,13 +63,13 @@ const styles = StyleSheet.create({
   },
   InfoCollumn1Container: {
     position: 'absolute',
-    left: Dimensions.get('window').width * 0.05,
+    left: Dimensions.get('window').width * 0.07,
     width: Dimensions.get('window').width * 0.40,
     height: Dimensions.get('window').height * 0.05,
   },
   InfoCollumn2Container: {
     position: 'absolute',
-    left: Dimensions.get('window').width * 0.45,
+    left: Dimensions.get('window').width * 0.47,
     width: Dimensions.get('window').width * 0.53,
     height: Dimensions.get('window').height * 0.07,
   },
@@ -81,16 +83,16 @@ const styles = StyleSheet.create({
   },
   TextInfoCollumn2: {
     fontFamily: FONT_FAMILY.POPPINS.REGULAR,
-    fontSize: 17,
-    fontWeight: '700',
+    fontSize: 15,
+    fontWeight: '400',
     alignSelf: 'flex-start',
     marginTop: 5,
     color: COLORS.BLACK,
   },
   TextInfo: {
     fontFamily: FONT_FAMILY.POPPINS.REGULAR,
-    fontSize: 15,
-    fontWeight: '400',
+    fontSize: 17,
+    fontWeight: '700',
     alignSelf: 'flex-start',
     marginTop: 5,
     color: COLORS.BLACK,
@@ -109,10 +111,10 @@ const styles = StyleSheet.create({
   },
   ConclusionText:{
     fontFamily: FONT_FAMILY.POPPINS.REGULAR,
-    fontSize: 15,
+    fontSize: 10,
     fontWeight: '600',
     alignItems:'center',
-    marginTop: 5,
+    marginTop: 15,
     color: COLORS.GRAY,
   },
   statisticsContainer:{
@@ -120,12 +122,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems:'center',
     top: Dimensions.get('window').height *0.49,
-    width: Dimensions.get('window').width * 0.70,
+    width: Dimensions.get('window').width * 0.7,
     height: Dimensions.get('window').height * 0.1,
     borderRadius: 30,
     backgroundColor: COLORS.MALIBU,
     borderColor: COLORS.BLACK,
-    borderWidth: 1,
   },
   statisticsText:{
     fontFamily: FONT_FAMILY.POPPINS.REGULAR,
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'flex-end',
     top: Dimensions.get('window').height *0.027,
-    width: Dimensions.get('window').width * 0.5,
+    width: Dimensions.get('window').width * 0.3,
     left: Dimensions.get('window').width * 0.28,
     height: Dimensions.get('window').height * 0.05,
 
