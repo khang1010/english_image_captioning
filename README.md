@@ -1,4 +1,3 @@
-```
 # English Image Captioning - Backend Server
 
 ????
